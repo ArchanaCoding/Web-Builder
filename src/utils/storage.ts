@@ -1,7 +1,8 @@
 import { Project } from '../types';
 
-const STORAGE_KEY = 'website-builder-project';
+const STORAGE_KEY = 'website-builder-project'; 
 
+//its save browser local storage so that when we realod so data won't get off
 export const saveProject = (project: Project): void => {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(project));
@@ -10,6 +11,7 @@ export const saveProject = (project: Project): void => {
   }
 };
 
+//check localStorage whether we have project data if yes load or new create project or else null.
 export const loadProject = (): Project | null => {
   try {
     const data = localStorage.getItem(STORAGE_KEY);

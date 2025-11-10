@@ -1,8 +1,11 @@
+// SectionRenderer is a reusable component that determines the type of a section (text, image, or button) and renders the correct UI based on that type. - why > multiple section types
+
 import { Section, TextSectionData, ImageSectionData, ButtonSectionData } from '../types';
 
+// type safety blueprint
 interface SectionRendererProps {
   section: Section;
-  isSelected?: boolean;
+  isSelected?: boolean; 
   onClick?: () => void;
   isDragging?: boolean;
 }

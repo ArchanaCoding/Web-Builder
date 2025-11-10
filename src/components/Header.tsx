@@ -1,9 +1,9 @@
 import { Save, Sun, Moon, Eye } from 'lucide-react';
-import { useBuilderStore } from '../store/useBuilderStore';
+import { useBuilderStore } from '../store/useBuilderStore'; // store for managing app state
 import { useNavigate } from 'react-router-dom';
 
 export const Header = () => {
-  const { project, setProjectName, setTheme, saveToLocalStorage } = useBuilderStore();
+  const { project, setProjectName, setTheme, saveToLocalStorage } = useBuilderStore(); //Store values extracted:  contains pages array
   const navigate = useNavigate();
 
   const handleSave = () => {

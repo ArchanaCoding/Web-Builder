@@ -4,29 +4,32 @@ import { generateUUID } from '../utils/uuid';
 import { loadProject, saveProject } from '../utils/storage';
 
 interface BuilderState {
-  project: Project;
-  activePageId: string | null;
-  selectedSectionId: string | null;
+  project: Project; //full project data (name, theme, pages etc) data field (state)
+  activePageId: string | null; // Which page is selected now id ''
+  selectedSectionId: string | null; // Which section is selected now id ''
 
-  initializeProject: () => void;
-  setProjectName: (name: string) => void;
+
+  initializeProject: () => void; //Load saved project or create new one 
+  setProjectName: (name: string) => void; 
   setTheme: (theme: Theme) => void;
+
 
   addPage: () => void;
   deletePage: (pageId: string) => void;
   renamePage: (pageId: string, name: string) => void;
-  setActivePage: (pageId: string) => void;
+  setActivePage: (pageId: string) => void; //Select a page
 
   addSection: (type: SectionType) => void;
   deleteSection: (sectionId: string) => void;
-  updateSection: (sectionId: string, data: Partial<SectionData>) => void;
+  updateSection: (sectionId: string, data: Partial<SectionData>) => void; //some part of section data & send only those filed which need to updates
   reorderSections: (sections: Section[]) => void;
   setSelectedSection: (sectionId: string | null) => void;
 
-  saveToLocalStorage: () => void;
-  getActivePage: () => Page | undefined;
+  saveToLocalStorage: () => void; // Save project in browser
+  getActivePage: () => Page | undefined; //Returns the entire object of the active page
 }
 
+//Creates a new project with one default page and one text section.
 const createDefaultProject = (): Project => ({
   id: generateUUID(),
   name: 'My Website',
@@ -50,6 +53,10 @@ const createDefaultProject = (): Project => ({
     },
   ],
 });
+
+
+// Our Zustand store setup It gives us access to:
+// Project data | Selected page/section | All update functions
 
 export const useBuilderStore = create<BuilderState>((set, get) => ({
   project: createDefaultProject(),

@@ -1,9 +1,10 @@
+// The toolbar component is a top bar where users can add new sections to their webpage—such as text, images, or buttons. Clicking each button adds a new section to the builder. > why user can drag-and-drop simply way to add.
 import { Type, Image, MousePointer } from 'lucide-react';
-import { useBuilderStore } from '../store/useBuilderStore';
+import { useBuilderStore } from '../store/useBuilderStore'; 
 import { SectionType } from '../types';
 
 export const Toolbar = () => {
-  const { addSection } = useBuilderStore();
+  const { addSection } = useBuilderStore(); //global state (store) fun addS
 
   const tools = [
     { type: 'text' as SectionType, icon: Type, label: 'Text Section' },

@@ -1,9 +1,10 @@
+//We can edit the heading and body if there is a text section; URL and alt in the image section; label and href in the button section. After changing the type, inputs automatically update the store by calling updateSection. Close will close the panel.
 import { X } from 'lucide-react';
 import { useBuilderStore } from '../store/useBuilderStore';
 import { TextSectionData, ImageSectionData, ButtonSectionData } from '../types';
 
 export const PropertiesPanel = () => {
-  const { selectedSectionId, getActivePage, updateSection, setSelectedSection } = useBuilderStore();
+  const { selectedSectionId, getActivePage, updateSection, setSelectedSection } = useBuilderStore(); //Zustanad is removing data field and fun from the store
 
   const activePage = getActivePage();
   const selectedSection = activePage?.sections.find((s) => s.id === selectedSectionId);

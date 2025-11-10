@@ -1,5 +1,6 @@
+//shows the list of pages in the project. The user can add a new page, select a page, rename it, or delete it. It uses data and functions from the store called useBuilderStore
 import { Plus, Trash2, Edit2, Check, X } from 'lucide-react';
-import { useBuilderStore } from '../store/useBuilderStore';
+import { useBuilderStore } from '../store/useBuilderStore'; //global state(pages,activePageId,actions
 import { useState } from 'react';
 
 export const PagesSidebar = () => {
@@ -8,25 +9,26 @@ export const PagesSidebar = () => {
   const [editingPageId, setEditingPageId] = useState<string | null>(null);
   const [editName, setEditName] = useState('');
 
-  const startEditing = (pageId: string, currentName: string) => {
-    setEditingPageId(pageId);
+  //Helper functions
+  const startEditing = (pageId: string, currentName: string) => { //set local states to begin rename
+    setEditingPageId(pageId); 
     setEditName(currentName);
   };
 
-  const saveEdit = (pageId: string) => {
+  const saveEdit = (pageId: string) => { //if name non-empty, call renamePage then exit edit mode.
     if (editName.trim()) {
       renamePage(pageId, editName.trim());
     }
     setEditingPageId(null);
   };
 
-  const cancelEdit = () => {
+  const cancelEdit = () => { //exit edit mode without saving
     setEditingPageId(null);
     setEditName('');
   };
 
   return (
-    <aside className="w-64 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 flex flex-col">
+    <aside className="w-64 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 flex flex-col"> 
       <div className="p-4 border-b border-gray-200 dark:border-gray-700">
         <div className="flex items-center justify-between mb-3">
           <h2 className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wide">
@@ -44,6 +46,7 @@ export const PagesSidebar = () => {
 
       <div className="flex-1 overflow-y-auto p-2">
         {project.pages.map((page) => (
+          // render each page item(List)
           <div
             key={page.id}
             className={`group mb-1 rounded-lg transition-colors ${
