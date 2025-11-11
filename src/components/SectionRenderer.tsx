@@ -37,7 +37,7 @@ export const SectionRenderer = ({ section, isSelected, onClick, isDragging }: Se
     const data = section.data as ImageSectionData;
     return (
       <div
-        className={`${baseClasses} cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 p-4`}
+        className={`${baseClasses} cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 p-1`}
         onClick={onClick}
       >
         <img
@@ -49,22 +49,27 @@ export const SectionRenderer = ({ section, isSelected, onClick, isDragging }: Se
     );
   }
 
+
   if (section.type === 'button') {
-    const data = section.data as ButtonSectionData;
-    return (
-      <div
-        className={`${baseClasses} p-6 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 flex justify-center`}
-        onClick={onClick}
+  const data = section.data as ButtonSectionData;
+  return (
+    <div
+      className={`${baseClasses} p-6 flex justify-center`}
+      onClick={onClick}
+    >
+      <a
+        href={data.href || '#'}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors shadow-md"
       >
-        <button
-          className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors shadow-md"
-          onClick={(e) => e.preventDefault()}
-        >
-          {data.label || 'Button'}
-        </button>
-      </div>
-    );
-  }
+        {data.label || 'Button'}
+      </a>
+    </div>
+  );
+}
+
+
 
   return null;
 };

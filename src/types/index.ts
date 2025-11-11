@@ -26,7 +26,7 @@ export interface Section {
 }
 
 export interface Page {
-  id: string;
+  id: string | "  ";
   name: string;
   path: string;
   sections: Section[];

@@ -13,14 +13,13 @@ interface SortableSectionProps {
 }
 
 export const SortableSection = ({ section, isSelected, onSelect }: SortableSectionProps) => {
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ //drag behaviour
     id: section.id,
   }); //transform & transition: For animation and position change of the element.
   
 
-  // Dynamic Style for Drag Animation -- Create a style object with a transform string generated from a transform object, and a transition property
   const style = {
-    transform: CSS.Transform.toString(transform), // position set x, y
+    transform: CSS.Transform.toString(transform), 
     transition, //Will give animation to that movement.
   };
 

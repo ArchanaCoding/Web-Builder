@@ -1,7 +1,4 @@
 /**
-The Canvas component is the main editable area of ​​our page builder.
-The user can drag, drop, reorder, and delete their sections (text, images, buttons, etc.)..
- * How it works:
  * - It gets the active page and section data from the global store.
  * - Uses DndContext and SortableContext from @dnd-kit to handle drag-and-drop.
  * - When a section is moved, it updates the order in the store.
@@ -15,16 +12,16 @@ import {
   useSensor,
   useSensors,
   DragEndEvent,
-} from '@dnd-kit/core';  // Import tools for drag and drop handling
+} from '@dnd-kit/core'; 
 import {
   arrayMove,
   SortableContext,
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
-} from '@dnd-kit/sortable';  // Helps reorder items after drag and drop
+} from '@dnd-kit/sortable';  
 import { SortableSection } from './SortableSection';  // Draggable individual section
-import { useBuilderStore } from '../store/useBuilderStore'; // Centralized state management 
-import { Trash2 } from 'lucide-react'; // Trash icon for delete button
+import { useBuilderStore } from '../store/useBuilderStore'; 
+import { Trash2 } from 'lucide-react'; 
 
 export const Canvas = () => {
   // Get data and functions from the store (state or methods access)
@@ -42,7 +39,7 @@ export const Canvas = () => {
   const sensors = useSensors(
     useSensor(PointerSensor), 
     useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates, // Keyboard arrow key movement
+      coordinateGetter: sortableKeyboardCoordinates,
     })
   );
 
@@ -81,10 +78,10 @@ export const Canvas = () => {
       </main>
     );
   }
-  // Main UI when sections exist
+ 
   return (
     <main className="flex-1 bg-gray-50 dark:bg-gray-800 overflow-y-auto">
-      <div className="max-w-4xl mx-auto py-8 px-6">
+      <div className="max-w-4xl mx-auto py-8 px-1">
         <DndContext
           sensors={sensors} //Enable sensors for drag/drop
           collisionDetection={closestCenter} //Detect closest drop area

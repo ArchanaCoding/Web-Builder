@@ -8,7 +8,7 @@ import { useBuilderStore } from '../store/useBuilderStore';
 import { useAutosave } from '../hooks/useAutosave';
 
 export const Builder = () => {
-  const { initializeProject, project } = useBuilderStore();
+  const { initializeProject, project } = useBuilderStore();  //edit etc the store update ui auto refresh
 
   useEffect(() => {
     initializeProject();

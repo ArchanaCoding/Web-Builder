@@ -31,13 +31,20 @@ const generateSectionHTML = (section: Section): string => {
   return '';
 };
 
-const generatePageHTML = (page: Page, project: Project, allPages: Page[]): string => {
+export const generatePageHTML = (page: Page, project: Project, allPages: Page[]): string => {
   const sectionsHTML = page.sections.map(generateSectionHTML).join('\n');
 
-  const navigation = allPages.map(p =>
-    `        <a href="${p.id}.html" class="${p.id === page.id ? 'active' : ''}">${p.name}</a>`
-  ).join('\n');
+  // Navigation links — Home should point to index.html
+  const navigation = allPages
+    .map((p) => {
+      const fileName = p.name.toLowerCase() === 'home' ? 'index' : p.name;
+      return `        <a href="${fileName}.html" class="${
+        p.id === page.id ? 'active' : ''
+      }">${p.name}</a>`;
+    })
+    .join('\n');
 
+  // Full HTML structure
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,7 +63,7 @@ ${navigation}
     </div>
   </nav>
 
-  <main class="container">
+  <main class="">
 ${sectionsHTML}
   </main>
 </body>
@@ -253,21 +260,23 @@ section {
 export const exportProject = async (project: Project): Promise<void> => {
   const zip = new JSZip();
 
-  const homePage = project.pages[0];
-  const indexHTML = generatePageHTML(homePage, project, project.pages);
-  zip.file('index.html', indexHTML);
+  // Generate each page properly
+  project.pages.forEach((page) => {
+    const fileName =
+      page.name.toLowerCase() === 'home' ? 'index.html' : `${page.name}.html`;
 
-  project.pages.forEach((page, index) => {
-    if (index === 0) return;
     const pageHTML = generatePageHTML(page, project, project.pages);
-    zip.file(`${page.id}.html`, pageHTML);
+    zip.file(fileName, pageHTML);
   });
 
+  // Include styles
   const css = generateCSS(project.theme);
   zip.file('styles.css', css);
 
+  // Include JSON data
   zip.file('project.json', JSON.stringify(project, null, 2));
 
+  // Generate zip blob and trigger download
   const blob = await zip.generateAsync({ type: 'blob' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -278,3 +287,4 @@ export const exportProject = async (project: Project): Promise<void> => {
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 };
+
