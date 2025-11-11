@@ -58,7 +58,7 @@ export const SectionRenderer = ({ section, isSelected, onClick, isDragging }: Se
       onClick={onClick}
     >
       <a
-        href={data.href || '#'}
+        href={data.href || ''}
         target="_blank"
         rel="noopener noreferrer"
         className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors shadow-md"

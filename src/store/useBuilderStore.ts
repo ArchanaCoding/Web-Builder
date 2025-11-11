@@ -158,7 +158,7 @@ export const useBuilderStore = create<BuilderState>((set, get) => ({
         data = { src: 'https://picsum.photos/800/300', alt: 'Sample image' };
         break;
       case 'button':
-        data = { label: 'Click Me', href: '#' };
+        data = { label: 'Click Me', href: '' };
         break;
     }
 
