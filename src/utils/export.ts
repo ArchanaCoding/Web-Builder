@@ -1,3 +1,4 @@
+// custom export system that converts data from a React/TypScript project to HTML, CSS, and JSON and creates a .zip file.
 import JSZip from 'jszip';
 import { Project, Page, Section, TextSectionData, ImageSectionData, ButtonSectionData } from '../types';
 

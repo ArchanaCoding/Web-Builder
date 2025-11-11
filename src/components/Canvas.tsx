@@ -1,10 +1,6 @@
 /**
- * Purpose:
- * This component displays the page sections and lets the user drag, drop, and delete sections.
- *
- * Why we need this:
- * It provides an editable area  where users can rearrange or manage sections visually.
- *
+The Canvas component is the main editable area of ​​our page builder.
+The user can drag, drop, reorder, and delete their sections (text, images, buttons, etc.)..
  * How it works:
  * - It gets the active page and section data from the global store.
  * - Uses DndContext and SortableContext from @dnd-kit to handle drag-and-drop.
@@ -26,8 +22,8 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';  // Helps reorder items after drag and drop
-import { SortableSection } from './SortableSection';  // Custom component for draggable section
-import { useBuilderStore } from '../store/useBuilderStore'; // State management for builder data
+import { SortableSection } from './SortableSection';  // Draggable individual section
+import { useBuilderStore } from '../store/useBuilderStore'; // Centralized state management 
 import { Trash2 } from 'lucide-react'; // Trash icon for delete button
 
 export const Canvas = () => {
@@ -40,11 +36,11 @@ export const Canvas = () => {
     reorderSections,
   } = useBuilderStore();
 
-  const activePage = getActivePage();  // Get the current active page
+  const activePage = getActivePage(); 
 
   // Set up sensors for drag-and-drop (mouse + keyboard support)
   const sensors = useSensors(
-    useSensor(PointerSensor), // mouse/touch drag
+    useSensor(PointerSensor), 
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates, // Keyboard arrow key movement
     })
@@ -56,10 +52,10 @@ export const Canvas = () => {
 
     if (!activePage || !over || active.id === over.id) return; //If invalid do nothing
 
-    const oldIndex = activePage.sections.findIndex((s) => s.id === active.id); // Find dragged section index
-    const newIndex = activePage.sections.findIndex((s) => s.id === over.id); // Find new position index
+    const oldIndex = activePage.sections.findIndex((s) => s.id === active.id); //Find dragged section index
+    const newIndex = activePage.sections.findIndex((s) => s.id === over.id); //Find new position index
 
-    const newSections = arrayMove(activePage.sections, oldIndex, newIndex);  // Reorder the sections
+    const newSections = arrayMove(activePage.sections, oldIndex, newIndex);  //Reorder the sections
     reorderSections(newSections); // Update order in store
   };
 
@@ -90,21 +86,21 @@ export const Canvas = () => {
     <main className="flex-1 bg-gray-50 dark:bg-gray-800 overflow-y-auto">
       <div className="max-w-4xl mx-auto py-8 px-6">
         <DndContext
-          sensors={sensors} // Enable sensors for drag/drop
-          collisionDetection={closestCenter} // Detect closest drop area
-          onDragEnd={handleDragEnd} // Handle drag end logic
+          sensors={sensors} //Enable sensors for drag/drop
+          collisionDetection={closestCenter} //Detect closest drop area
+          onDragEnd={handleDragEnd} // handle drag end logic
         >
           <SortableContext
-            items={activePage.sections.map((s) => s.id)} // List of section IDs
-            strategy={verticalListSortingStrategy} // Arrange vertically
+            items={activePage.sections.map((s) => s.id)} //List of section IDs
+            strategy={verticalListSortingStrategy} //Arrange vertically
           >
             <div className="space-y-4">
               {activePage.sections.map((section) => (
                 <div key={section.id} className="relative group">
                   <SortableSection
                     section={section}
-                    isSelected={selectedSectionId === section.id} // Highlight selected section
-                    onSelect={() => setSelectedSection(section.id)} // Select section on click
+                    isSelected={selectedSectionId === section.id} //Highlight selected section
+                    onSelect={() => setSelectedSection(section.id)} //Select section on click
                   />
                   <button
                     onClick={() => {
@@ -120,8 +116,12 @@ export const Canvas = () => {
                 </div>
               ))}
             </div>
-          </SortableContext>
+            {/* When we drag , the library should know that:  Which items are in the list?
+What is their current order? What strategy should we use to sort (vertical, grid)*/}
+          </SortableContext> 
         </DndContext>
+        {/*dnd engine of drag-and-drop
+        - activate the system*/}
       </div>
     </main>
   );

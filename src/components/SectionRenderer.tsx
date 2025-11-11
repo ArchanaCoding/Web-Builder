@@ -1,4 +1,5 @@
 // SectionRenderer is a reusable component that determines the type of a section (text, image, or button) and renders the correct UI based on that type. - why > multiple section types
+// Note:A conditional React component that renders different UIs based on section type.
 
 import { Section, TextSectionData, ImageSectionData, ButtonSectionData } from '../types';
 
@@ -40,7 +41,7 @@ export const SectionRenderer = ({ section, isSelected, onClick, isDragging }: Se
         onClick={onClick}
       >
         <img
-          src={data.src || 'https://images.pexels.com/photos/1054218/pexels-photo-1054218.jpeg?auto=compress&cs=tinysrgb&w=800'}
+          src={data.src || 'https://picsum.photos/800/300'}
           alt={data.alt || 'Image'}
           className="w-full h-auto max-h-96 object-cover rounded-lg"
         />

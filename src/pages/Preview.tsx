@@ -8,7 +8,7 @@ export const Preview = () => {
   const navigate = useNavigate();
   const { project, activePageId, setActivePage } = useBuilderStore();
 
-  const activePage = project.pages.find((p) => p.id === activePageId) || project.pages[0];
+  const activePage = project.pages.find((p) => p.id === activePageId) || project.pages[0];// current active page or page 1st
 
   const handleExport = async () => {
     try {
@@ -23,6 +23,7 @@ export const Preview = () => {
   return (
     <div className={project.theme === 'dark' ? 'dark' : ''}>
       <div className="min-h-screen bg-white dark:bg-gray-900">
+
         <header className="sticky top-0 z-10 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-sm">
           <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
             <button
@@ -35,10 +36,10 @@ export const Preview = () => {
 
             <div className="flex items-center gap-4">
               <div className="flex gap-2">
-                {project.pages.map((page) => (
+                {project.pages.map((page) => ( //for every page return a button
                   <button
                     key={page.id}
-                    onClick={() => setActivePage(page.id)}
+                    onClick={() => setActivePage(page.id)} // when will click the button make page active
                     className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
                       activePage?.id === page.id
                         ? 'bg-blue-600 text-white'
@@ -46,6 +47,7 @@ export const Preview = () => {
                     }`}
                   >
                     {page.name}
+                    {/* show the page name inside button */}
                   </button>
                 ))}
               </div>
@@ -61,6 +63,7 @@ export const Preview = () => {
           </div>
         </header>
 
+{/* we are checking if the active page has any sections. If yes we loop through them and render each one using SectionRenderer. If not we show a message saying the page is empty." */}
         <main className="max-w-7xl mx-auto px-6 py-8">
           {activePage && activePage.sections.length > 0 ? (
             <div className="space-y-6">
@@ -68,7 +71,9 @@ export const Preview = () => {
                 <SectionRenderer key={section.id} section={section} />
               ))}
             </div>
+
           ) : (
+
             <div className="text-center text-gray-500 dark:text-gray-400 py-20">
               <p className="text-lg">This page has no content yet</p>
             </div>

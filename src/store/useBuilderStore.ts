@@ -155,7 +155,7 @@ export const useBuilderStore = create<BuilderState>((set, get) => ({
         data = { heading: 'New Heading', body: 'Your content here' };
         break;
       case 'image':
-        data = { src: 'https://images.pexels.com/photos/1054218/pexels-photo-1054218.jpeg?auto=compress&cs=tinysrgb&w=800', alt: 'Sample image' };
+        data = { src: 'https://picsum.photos/800/300', alt: 'Sample image' };
         break;
       case 'button':
         data = { label: 'Click Me', href: '#' };
